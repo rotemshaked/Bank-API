@@ -37,7 +37,7 @@ app.put("/users/updatecredit", (request, response) => {
   response.send(data);
 });
 
-app.put("/users/withdrawFromAccount", (request, response) => {
+app.put("/users/withdraw", (request, response) => {
   const data = utils.withdraw(request);
   response.send(data);
 });

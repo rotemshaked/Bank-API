@@ -42,8 +42,7 @@ const deposit = (request) => {
   const user = data.find(
     (theUser) => theUser.passportId === parseInt(request.body.passportId)
   );
-  user.cash = user.cash + request.body.deposition;
-  //   data.push();
+  user.cash = user.cash + request.body.sum;
   jsonData = JSON.stringify(data);
   fs.writeFileSync("./users.json", jsonData);
   return user;
@@ -66,9 +65,9 @@ const withdraw = (request) => {
     (theUser) => theUser.passportId === parseInt(request.body.passportId)
   );
   if (user.cash > 0) {
-    user.cash = user.cash - request.body.withdrawFromAccount;
+    user.cash = user.cash - request.body.sum;
   } else if (credit > 0) {
-    user.credit = user.credit - request.body.withdrawFromAccount;
+    user.credit = user.credit - request.body.sum;
   }
   jsonData = JSON.stringify(data);
   fs.writeFileSync("./users.json", jsonData);
