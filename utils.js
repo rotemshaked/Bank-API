@@ -42,7 +42,8 @@ const deposit = (request) => {
   const user = data.find(
     (theUser) => theUser.passportId === parseInt(request.body.passportId)
   );
-  data.push((user.cash = user.cash + request.body.deposition));
+  user.cash = user.cash + request.body.deposition;
+  //   data.push();
   jsonData = JSON.stringify(data);
   fs.writeFileSync("./users.json", jsonData);
   return user;
@@ -53,7 +54,7 @@ const updateCredit = (request) => {
   const user = data.find(
     (theUser) => theUser.passportId === parseInt(request.body.passportId)
   );
-  data.push((user.credit = request.body.updateCredit));
+  user.credit = request.body.updateCredit;
   jsonData = JSON.stringify(data);
   fs.writeFileSync("./users.json", jsonData);
   return user;
@@ -65,9 +66,9 @@ const withdraw = (request) => {
     (theUser) => theUser.passportId === parseInt(request.body.passportId)
   );
   if (user.cash > 0) {
-    data.push((user.cash = user.cash - request.body.withdrawFromAccount));
+    user.cash = user.cash - request.body.withdrawFromAccount;
   } else if (credit > 0) {
-    data.push((user.credit = user.credit - request.body.withdrawFromAccount));
+    user.credit = user.credit - request.body.withdrawFromAccount;
   }
   jsonData = JSON.stringify(data);
   fs.writeFileSync("./users.json", jsonData);
@@ -83,17 +84,11 @@ const transferMoney = (request) => {
     (theUser) => theUser.passportId === parseInt(request.body.transferTo)
   );
   if (user.cash > 0) {
-    data.push(
-      (userToTrasfer.credit =
-        userToTrasfer.credit + request.body.transferAmount)
-    );
+    userToTrasfer.credit = userToTrasfer.credit + request.body.transferAmount;
     data.push((user.cash = user.cash - request.body.transferAmount));
   } else if (user.credit > 0) {
-    data.push(
-      (userToTrasfer.credit =
-        userToTrasfer.credit + request.body.transferAmount)
-    );
-    data.push((user.credit = user.credit - request.body.transferAmount));
+    userToTrasfer.credit = userToTrasfer.credit + request.body.transferAmount;
+    user.credit = user.credit - request.body.transferAmount;
   }
   jsonData = JSON.stringify(data);
   fs.writeFileSync("./users.json", jsonData);
