@@ -4,6 +4,7 @@ app.use(express.json());
 const utils = require("./utils");
 const cors = require("cors");
 app.use(cors());
+require("dotenv").config();
 
 app.get("/users", (request, response) => {
   const data = utils.loadData();
@@ -49,4 +50,6 @@ app.put("/users/transferMoney", (request, response) => {
   response.send(data);
 });
 
-app.listen(8080, () => console.log("Listening..."));
+app.listen(process.env.PORT || 8080, () =>
+  console.log(`Server is up and running on port ${process.env.PORT || 8080}`)
+);
