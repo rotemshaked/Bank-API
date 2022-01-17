@@ -42,6 +42,7 @@ const deposit = (request) => {
   const user = data.find(
     (theUser) => theUser.passportId === parseInt(request.body.passportId)
   );
+  console.log(user);
   user.cash = user.cash + request.body.sum;
   jsonData = JSON.stringify(data);
   fs.writeFileSync("./users.json", jsonData);

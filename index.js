@@ -2,6 +2,8 @@ const express = require("express");
 const app = express();
 app.use(express.json());
 const utils = require("./utils");
+const cors = require("cors");
+app.use(cors());
 
 app.get("/users", (request, response) => {
   const data = utils.loadData();
@@ -47,4 +49,4 @@ app.put("/users/transferMoney", (request, response) => {
   response.send(data);
 });
 
-app.listen(3000, () => console.log("Listening..."));
+app.listen(8080, () => console.log("Listening..."));
